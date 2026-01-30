@@ -27,7 +27,7 @@ public class KafkaEventConsumer {
             Integer views = question.getViews();
             question.setViews(views == null ? 0 : views + 1);
             return questionRepository.save(question);
-        })
+        })// flatmap is preferred in mono to map when the return type is also mono and get the access to the inner value
         .subscribe(updatedQuestion -> {
             System.out.println("View count incremented for question: " + updatedQuestion.getId());
         }, error -> {
